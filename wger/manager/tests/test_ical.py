@@ -66,3 +66,30 @@ class WorkoutICalExportTestCase(WgerTestCase):
 
         self.user_login('admin')
         self.export_ical(fail=True)
+
+    def test_export_ical_query_auth_success(self):
+        """
+        Tests exporting a workout via query parameter authentication
+        """
+        url = reverse('manager:routine:ical', kwargs={'pk': 3}) + '?username=test&password=testtest'
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response['Content-Type'], 'text/calendar')
+        self.assertGreater(len(response.content), 50)
+        self.assertLess(len(response.content), 620)
+
+    def test_export_ical_query_auth_wrong_password(self):
+        """
+        Tests exporting a workout via query authentication with wrong password
+        """
+        url = reverse('manager:routine:ical', kwargs={'pk': 3}) + '?username=test&password=wrong'
+        response = self.client.get(url)
+        self.assertIn(response.status_code, (403, 404))
+
+    def test_export_ical_query_auth_wrong_user(self):
+        """
+        Tests exporting a workout via query authentication with different user owning no routine
+        """
+        url = reverse('manager:routine:ical', kwargs={'pk': 3}) + '?username=admin&password=adminadmin'
+        response = self.client.get(url)
+        self.assertIn(response.status_code, (403, 404))

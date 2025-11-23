@@ -10,8 +10,6 @@ on:
     paths:
       - 'extras/docker/base/Dockerfile'
       - '.github/workflows/docker-base.yml'
-  schedule:
-    - cron: '0 5 1 * *'
 
 permissions:
   contents: read

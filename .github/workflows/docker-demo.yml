@@ -11,8 +11,6 @@ on:
     paths:
       - 'extras/docker/demo/Dockerfile'
       - '.github/workflows/docker-demo.yml'
-  schedule:
-    - cron: '0 6 1,15 * *'
 
 permissions:
   contents: read
