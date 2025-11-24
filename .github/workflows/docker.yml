@@ -67,4 +67,4 @@ jobs:
 
       - name: Inspect GHCR image
         run: |
-          docker buildx imagetools inspect ${{ env.GHCR_IMAGE }}:${{ steps.meta.outputs.version }}
+          docker buildx imagetools inspect ghcr.io/vimaster/server:${{ steps.meta.outputs.version }}
