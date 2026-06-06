@@ -15,6 +15,7 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # Django
+from django.contrib.staticfiles import finders
 from django.db import models
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
@@ -80,4 +81,5 @@ class Language(models.Model):
 
     @property
     def static_path(self):
-        return f'images/icons/flags/{self.short_name}.svg'
+        path = f'images/icons/flags/{self.short_name}.svg'
+        return path if finders.find(path) else 'images/icons/flags/en.svg'

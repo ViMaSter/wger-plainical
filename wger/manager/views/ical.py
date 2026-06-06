@@ -32,7 +32,6 @@ from icalendar import (
     Calendar,
     Event,
 )
-from icalendar.tools import UIDGenerator
 
 # wger
 from wger.manager.models import Routine
@@ -72,7 +71,6 @@ def get_events_workout(calendar, routine: Routine):
     the calendar.
     """
 
-    generator = UIDGenerator()
     site = Site.objects.get_current()
 
     for day_data in routine.date_sequence:
@@ -84,7 +82,7 @@ def get_events_workout(calendar, routine: Routine):
         event.add('description', day_data.day.description)
         event.add('dtstart', day_data.date)
         event.add('dtend', day_data.date)
-        event['uid'] = generator.uid(host_name=site.domain)
+        event['uid'] = f'{uuid.uuid4()}@{site.domain}'
         event.add('priority', 5)
         calendar.add_component(event)
 

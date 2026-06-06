@@ -16,6 +16,7 @@
 import logging
 
 # Django
+from django.contrib.staticfiles import finders
 from django.core.cache import cache
 from django.utils import translation
 
@@ -55,8 +56,9 @@ def load_language(language_code=None, default_to_english=True) -> Language:
 
 
 def get_language_data(language):
+    path = f'images/icons/flags/{language[0]}.svg'
     return {
         'name': language[1],
         'code': language[0],
-        'path': f'images/icons/flags/{language[0]}.svg',
+        'path': path if finders.find(path) else 'images/icons/flags/en.svg',
     }
