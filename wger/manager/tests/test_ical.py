@@ -90,6 +90,9 @@ class WorkoutICalExportTestCase(WgerTestCase):
         """
         Tests exporting a workout via query authentication with different user owning no routine
         """
-        url = reverse('manager:routine:ical', kwargs={'pk': 3}) + '?username=admin&password=adminadmin'
+        url = (
+            reverse('manager:routine:ical', kwargs={'pk': 3})
+            + '?username=admin&password=adminadmin'
+        )
         response = self.client.get(url)
         self.assertIn(response.status_code, (403, 404))

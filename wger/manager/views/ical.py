@@ -19,8 +19,8 @@ import logging
 import uuid
 
 # Django
-from django.contrib.sites.models import Site
 from django.contrib.auth import authenticate
+from django.contrib.sites.models import Site
 from django.http import (
     HttpResponse,
     HttpResponseForbidden,
